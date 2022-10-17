@@ -1,0 +1,235 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.kid--sectionn {
+    /* background-color: red; */
+    padding: 2rem 0;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+
+
+
+}
+
+.dd-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.dd-none {
+    display: none;
+}
+
+.kid--sectionn:hover .containerr {
+    background-color: red;
+    color: white !important;
+}
+
+.kid--sectionn:hover span {
+    color: white;
+}
+
+.kid--sectionn:hover .btnn2 {
+    background-color: rgb(15, 15, 15);
+
+}
+
+.titlee h3 {
+    font-size: .875rem;
+    line-height: 1.29;
+    margin-bottom: 10px
+}
+
+.containerr {
+    width: 80%;
+    margin: auto;
+    /* background-color: blue; */
+    padding: 3rem 2rem; 
+    border-bottom: 1px solid rgb(15, 15, 15);
+}
+
+.containerr h4 {
+    font-size: .875rem;
+    line-height: 1.29;
+    margin-bottom: 10px;
+}
+
+.kid--paragraphh {
+    font-size: .8125rem;
+    line-height: 1.29;
+    letter-spacing: -.21px;
+}
+
+.titlee {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+}
+
+.titlee img {
+    margin-right: 1rem;
+}
+
+.right-footerr {
+    /* background-color: tomato; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 40%;
+
+}
+
+.footer--contentt {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.right-footerr .left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.right-footerr .right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.mss-1 {
+    margin-left: 0.5rem;
+}
+
+.footer--contentt span {
+    color: rgb(15, 15, 15);
+}
+
+.buttonss {
+    margin-top: 1rem;
+}
+
+.btnn1  {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);
+    height: 50px;
+    line-height: 2.05;
+    margin-right: 15px;
+    border-style: solid !important;
+    border-width: 1px !important;
+    cursor: pointer;
+    padding: 1rem 4rem
+}
+
+.btnn2 {
+    background-color: transparent;
+    color: rgb(254, 254, 254);
+    border-color: transparent;
+    cursor: pointer;
+    padding: 1rem 0.6rem
+}
+
+a {
+    text-decoration: none;
+
+}
+
+@media screen and (max-width: 1080px) {
+
+
+
+    .right-footerr {
+        /* background-color: tomato; */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .right-footerr .right {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer--contentt {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: start;
+
+    }
+
+    .kid--paragraphh {
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .buttonss {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+
+    }
+
+    .btnn1  {
+        margin-bottom: 1rem;
+        text-align: center;
+        height: 30px;
+        font-size: 1rem;
+        line-height: 2.56;
+
+    }
+
+    .btnn2 {
+
+        width: 50%;
+        text-align: center;
+
+    }
+
+}
