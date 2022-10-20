@@ -138,29 +138,31 @@
 
 
 
-							<form action="#">
-								<div class="row">
-									<div class="col-lg-4 col-md-6 mb-30">
+							<form onsubmit="return sendData()" >
+								<p id="alert" class="mb-20">erorr !</p>
+							<p id="AlertSucses" class="mb-20">erorr !</p>
+								<div class="row mt-10">
+									<div class="col-lg-4 col-md-6 mb-30 ">
 										<div class="contact__form-form-group icon"> <i class="far fa-user"></i>
-											<input type="text" name="name" placeholder="Your Name" required="required">
+											<input id="name" type="text" name="name" placeholder="Your Name" required="required">
 										</div>
 									</div>
 									<div class="col-lg-4 col-md-6 md-mb-30">
 										<div class="contact__form-form-group icon c"> <i
 												class="far fa-envelope-open"></i>
-											<input type="text" name="email" placeholder="Your Email"
+											<input id="email" type="text" name="email" placeholder="Your Email"
 												required="required">
 										</div>
 									</div>
 									<div class="col-lg-4 col-md-6 md-mb-30">
 										<div class="contact__form-form-group icon c"> <i class="fa fa-phone"></i>
-											<input type="text" name="phone" placeholder="Your Phone"
+											<input  id="phone" type="text" name="phone" placeholder="Your Phone"
 												required="required">
 										</div>
 									</div>
 									<div class="col-lg-4 col-md-6 md-mb-30">
 										<div class="contact__form-form-group icon"> <i class="fa fa-map-marker"></i>
-											<input type="location" name="location" placeholder="Your Location"
+											<input id="address" type="location" name="location" placeholder="Your Location"
 												required="required">
 										</div>
 									</div>
@@ -307,7 +309,10 @@
 	<script src="assets/js/jquery.nice-select.min.html"></script>
 	<!-- WOW JS -->
 	<script src="assets/js/wow.min.js"></script>
+	
 	<!-- Custom JS -->
+	<script src="assets/js/internships.js"></script>
+
 	<script src="assets/js/custom.js"></script>
 </body>
 

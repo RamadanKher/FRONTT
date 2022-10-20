@@ -1,3 +1,4 @@
+
 (function ($) {
 	"use strict";
 	// /*========== Responsive Menu  ==========*/
@@ -117,24 +118,131 @@
 	});
 })(jQuery);
 
+// this function  use to View All bloggs
+let bloggs;
+function ViewAllbloggs() {
+	fetch("https://enagancy.000webhostapp.com/api/blogs")
+		.then(response => {
+			return response.json()
+
+
+		})
+		.then(data => {
+
+			bloggs = data
+			// alert("sdkk")
+			let trs = ``;
+			for (var i = 0; i < bloggs.length; i++) {
+				trs += `
+				<div class="col-xl-4 col-lg-6">
+					<div class="blog__area-item wow fadeInUp" data-wow-delay="1.2s">
+						<div class="blog__area-item-image">
+							<img src="assets/img/blog-6.jpg" alt="">
+							<div class="blog__area-item-image-date">	<span><i class="flaticon-calendar"></i><a href="#">19 Feb, 2022</a></span>	
+							</div>
+						</div>
+						<div class="blog__area-item-content">
+							<div class="blog__area-item-content-meta">
+								<ul>
+									<li><i class="flaticon-user parag"></i><a href="#">Aaron Finch</a></li>
+									<li><i class="flaticon-chat parag"></i><a href="#">Comments (2)</a></li>
+								</ul>
+							</div>
+							<h3 class="mb-20 parag" style="font-size:large ;"><a href="blog-details.html">${bloggs[i].small_title}</a></h3>
+							<div class="blog__area-item-content-btn parag" >	<a onclick="BlogDetils(${bloggs[i].id})" >Read More <i class="flaticon-right-arrow"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+
+			}
+
+			document.getElementById("Alllblogs").innerHTML = trs;
+
+
+		})
+		.catch(error => {
+			// alert(error)
+		});
+}
+ViewAllbloggs()
+
+// this function use to get single blog by id 
+let singleBlog
+function BlogDetils(id) {
+	alert(id)
+	fetch(`https://enagancy.000webhostapp.com/api/blog/${id}`)
+		.then(response => {
+			return response.json()
+
+
+		})
+		.then(data => {
+
+			singleBlog = data
+			// console.log(data)
+			localStorage.setItem("singleBlog", JSON.stringify(singleBlog));
+
+			window.location.assign("blog-details.html")
+
+
+		})
+		.catch(error => {
+			// handle the error
+		});
+}
+// this function use to  display Single Blog 
+function displaySingleBlog() {
+	let SingleBlog = JSON.parse(localStorage.getItem("singleBlog"));
+
+
+	document.getElementById("bolgDetils").innerHTML = `
+	<div class="col-xl-8 col-lg-8 lg-mb-30">
+	<div class="blog__details-left">
+		<div class="blog__details-left-image">
+			<img src="${SingleBlog.img}" alt="">
+		</div>
+		<div class="blog__details-left-content mb-40">
+			<div class="blog__details-left-content-meta mb-20">
+				<ul>
+					<li class="blog__details-left-content-date mr-40"><i class="flaticon-calendar"></i><a href="#">27 Feb, 2022</a></li>
+					<li class="mr-30"><i class="flaticon-user"></i><a href="#">${SingleBlog.writer}</a></li>
+				</ul>
+			</div>
+			<h3 class="mb-15 parag">${SingleBlog.title}</h3>
+			<p class="mb-30 parag">${SingleBlog.description}</p>
+			<p class="mb-20 parag">Mauris aliquam ante id eros viverra, sed convallis metus accumsan. Donec condimentum enim vel tristique tincidunt. Nullam lacus lorem, ultricies at dictum at, malesuada ut dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada </p>
+
+			<p class="parag">Donec scelerisque ex arcu. Cras commodo auctor tortor, quis euismod sapien tincidunt non. Pellentesque aliquam sem in tellus fringilla interdum. Integer nec ex magna. Ut urna urna, blandit quis mi ac, elementum molestie turpis. Integer mattis turpis id quam volutpat egestas. Nulla sagittis ligula a augue semper sagittis.</p>
+		</div>
+		
+							
+		</div>
+	</div>	
+</div>
+	`
 
 
 
 
+}
+displaySingleBlog()
 
 
-// form course_view (Register Course Now)
+//  form_partner.html (Enter Now Into A Partnership With Us. We Provide A Great Role And Assistance To Our Partners)
 
-function sendData() {
+function partenerForm() {
 	// (A) GET FORM DATA
 	var data = new FormData();
 	data.append("name", document.getElementById("name").value);
 	data.append("email", document.getElementById("email").value);
 	data.append("phone", document.getElementById("phone").value);
-	data.append("address", document.getElementById("address").value);
+	data.append("about", document.getElementById("about").value);
+	data.append("company_name", document.getElementById("CompanyName").value);
 
 	// (B) INIT FETCH POST
-	fetch("https://enagancy.000webhostapp.com/api/course/regester", {
+	fetch("https://enagancy.000webhostapp.com/api/partnership/regester", {
 		method: "POST",
 		body: data
 	})
@@ -147,13 +255,144 @@ function sendData() {
 
 		// (D) SERVER RESPONSE
 		.then((response) => {
-			if (response == `"regester course is successfully"`) {
+			if (response == `"regester Partnership is successfully"`) {
+
+				// sucess register
+				document.getElementById("AlertSucses").classList.add("d-block");
+				document.getElementById("AlertSucses").innerHTML = `regester Partnership is successfully`
+			} else {
+				//  falid register 
+				document.getElementById("alert").classList.add("d-block")
+				if (response.includes("phone field")) {
+
+					document.getElementById("alert").innerHTML = `phone field !`
+
+				} else if (response.includes("email field")) {
+
+					document.getElementById("alert").innerHTML = `email field !`
+
+				} else if (response.includes("The name field is required.")) {
+
+					document.getElementById("alert").innerHTML = `name field !`
+
+				} else if ((response.includes("about"))) {
+
+					document.getElementById("alert").innerHTML = `about required !`
+
+				} else if ((response.includes("The company name field is required."))){
+					document.getElementById("alert").innerHTML = `company name field  !`
+
+				}
+			}
+
+			//   window.location.assign("course_view.html")
+		})
+
+		// (E) HANDLE ERRORS - OPTIONAL
+		.catch((error) => { console.log(error); });
+
+	// (F) PREVENT FORM SUBMIT
+	return false;
+}
+
+// form_valanteer.HTML
+function valanteerForm() {
+	// (A) GET FORM DATA
+	var data = new FormData();
+	data.append("name", document.getElementById("name").value);
+	data.append("email", document.getElementById("email").value);
+	data.append("phone", document.getElementById("phone").value);
+	data.append("about", document.getElementById("about").value);
+	data.append("field_of_volunteering", document.getElementById("volunteering").value);
+	data.append("age", document.getElementById("age").value);
+
+	// (B) INIT FETCH POST
+	fetch("https://enagancy.000webhostapp.com/api/valanteer/regester", {
+		method: "POST",
+		body: data
+	})
+
+		// (C) RETURN SERVER RESPONSE AS TEXT
+		.then((result) => {
+			if (result.status != 200) { throw new Error("Bad Server Response"); }
+			return result.text();
+		})
+
+		// (D) SERVER RESPONSE
+		.then((response) => {
+			if (response == `"regester valanteer is successfully"`) {
+
+				// sucess register
+				document.getElementById("AlertSucses").classList.add("d-block");
+				document.getElementById("AlertSucses").innerHTML = `regester Partnership is successfully`
+			} else {
+				//  falid register 
+				document.getElementById("alert").classList.add("d-block")
+				if (response.includes("phone field")) {
+
+					document.getElementById("alert").innerHTML = `phone field !`
+
+				} else if (response.includes("email field")) {
+
+					document.getElementById("alert").innerHTML = `email field !`
+
+				} else if (response.includes("The name field is required.")) {
+
+					document.getElementById("alert").innerHTML = `name field !`
+
+				} else if ((response.includes("about"))) {
+
+					document.getElementById("alert").innerHTML = `about required !`
+
+				} else if ((response.includes("volunteering"))){
+					document.getElementById("alert").innerHTML = ` volunteering field is required.  !`
+
+				} else if ((response.includes("age"))){
+					document.getElementById("alert").innerHTML = ` The age must not be greater than 2 characters. !`
+					
+				}
+			}
+
+			//   window.location.assign("course_view.html")
+		})
+
+		// (E) HANDLE ERRORS - OPTIONAL
+		.catch((error) => { console.log(error); });
+
+	// (F) PREVENT FORM SUBMIT
+	return false;
+}
+
+
+// form contuct 
+function contactForm() {
+	// (A) GET FORM DATA
+	var data = new FormData();
+	data.append("name", document.getElementById("name").value);
+	data.append("email", document.getElementById("email").value);
+	data.append("phone", document.getElementById("phone").value);
+	data.append("subject", document.getElementById("subject").value);
+	data.append("massage", document.getElementById("massage").value);
+
+	// (B) INIT FETCH POST
+	fetch("https://enagancy.000webhostapp.com/api/contact_us", {
+		method: "POST",
+		body: data
+	})
+
+		// (C) RETURN SERVER RESPONSE AS TEXT
+		.then((result) => {
+			if (result.status != 200) { throw new Error("Bad Server Response"); }
+			return result.text();
+		})
+
+		// (D) SERVER RESPONSE
+		.then((response) => {
+			if (response =="successfully") {
 
 				// sucess register
 				document.getElementById("AlertSucses").classList.add("d-block");
 				document.getElementById("AlertSucses").innerHTML = `regester course is successfully`
-				// route 
-				window.location.assign("course_view.html")
 			} else {
 				//  falid register 
 				document.getElementById("alert").classList.add("d-block")
@@ -165,13 +404,17 @@ function sendData() {
 
 					document.getElementById("alert").innerHTML = `email field !`
 
+				} else if (response.includes("subject field")) {
+
+					document.getElementById("alert").innerHTML = `subject field !`
+
+				} else if ((response.includes("massage field"))) {
+
+					document.getElementById("alert").innerHTML = `massage field !`
+
 				} else if (response.includes("name field")) {
 
 					document.getElementById("alert").innerHTML = `name field !`
-
-				} else if ((response.includes("address field"))) {
-
-					document.getElementById("alert").innerHTML = `address field !`
 
 				}
 			}
@@ -187,258 +430,13 @@ function sendData() {
 }
 
 
-window.addEventListener('load', () => {
-
-	ViewAllCourses();
-	displayCourseDetils();
-
-});
-
-
-// this function  use to View All Courses
-let cousres;
-function ViewAllCourses() {
-	fetch("https://enagancy.000webhostapp.com/api/courses")
-		.then(response => {
-			return response.json()
-
-
-		})
-		.then(data => {
-
-			cousres = data
-			console.log(cousres)
-			let trs = ``;
-			for (var i = 0; i < cousres.length; i++) {
-				trs += `
-			  <div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-			  <div class="service__area-item t-center thin-bg">
-			  <div class="service__area-item-icon mb-20 bg-white">
-				  <img src="${cousres[i].small_icon}" alt="">
-			  </div>
-			  <div class="service__area-item-content">
-				  <h4 class="mb-20 parag" style="text-align:center;">${cousres[i].small_title}</h4>
-				  <p class="mb-20 cont ">${cousres[i].small_description}</p>
-				  <a  onclick="getCoursDetils(${cousres[i].id})"    class="simple-btn"  >More Details</a>
-			  </div>
-		  </div>
-		  </div>
-				`;
-
-			}
-
-			document.getElementById("tboddy").innerHTML = trs;
-
-
-		})
-		.catch(error => {
-			// handle the error
-		});
-}
-
-
-// this function use to get Cours Detils by id 
-let single
-async function getCoursDetils(id) {
-	await fetch(`https://enagancy.000webhostapp.com/api/course/${id}`)
-		.then(response => {
-			return response.json()
-
-
-		})
-		.then(data => {
-
-			single = data
-			console.log(data)
-			localStorage.setItem("coursDeltils", JSON.stringify(data));
-
-			window.location.assign("course_view.html")
-
-
-		})
-		.catch(error => {
-			// handle the error
-		});
-}
-
-// this function use to display Cours Detils  
-function displayCourseDetils() {
-	let SingleCourse =  JSON.parse(localStorage.getItem("coursDeltils"));
-	console.log(SingleCourse)
 
 
 
 
 
-	document.getElementById("coursDetils").innerHTML = `
-	<div class="itemOne">
-					<h1 class="backendTitle"> ${SingleCourse.title} </h1>
-					<p class="p-title">${SingleCourse.description}</p>
-					<div class="">
-						<ul class="ListLinks">
-							<li>${SingleCourse.price} </li>
-							<li>${SingleCourse.duration} </li>
-							<li>${SingleCourse.project} </li>
-							<li>${SingleCourse.tag_one} </li>
-							<li>${SingleCourse.tag_two} </li>
-							
-						</ul>
-					</div>
-					<br>
-					<br>
-					<div class="FooterButtons">
-						<button class="childButtom1">
-							Register now
-							<img src="img/arrow-right.svg" alt="" srcset="">
-						</button>
-						<button class="childButtom2"> 
-						<svg xmlns="http://www.w3.org/2000/svg" width="20.402"height="24.264" viewBox="0 0 20.402 24.264">
-								<g id="download" transform="translate(-628.752 -864.244)">
-									<g id="icon" fill="none" stroke="#0f0f0f" stroke-width="2px"
-										transform="translate(623.113 859)">
-										<path id="Line_310" stroke-linejoin="round" d="M0 0L19.606 0"
-											data-name="Line 310" transform="translate(6.085 28.508)"></path>
-										<g id="arrow" transform="rotate(90 9.798 15.542)">
-											<path id="Rectangle_2" d="M8.96-.012L18.011 9.5 8.96 19.012"
-												data-name="Rectangle 2"></path>
-											<path id="Line_382" d="M18 0L0 0" data-name="Line 382"
-												transform="translate(-.5 9.5)"></path>
-										</g>
-									</g>
-								</g>
-							</svg>
-							<a href="${SingleCourse.content_link}">Download Content</a>
-							</button>
-					</div>
-
-				</div>
-				<div class="ItemTow">
-					<img class="w-100" src="${SingleCourse.img}" alt="">
-				</div>
-	`
-	// change bg 
-	document.getElementById("backendBg").style.cssText = `background-color:${SingleCourse.color}; !important`
-}
 
 
-// this function  use to View All internship
-let internships;
-function ViewAllInternship() {
-	fetch("https://enagancy.000webhostapp.com/api/internships")
-		.then(response => {
-			return response.json()
 
 
-		})
-		.then(data => {
 
-			internships = data
-			console.log(internships)
-			let trs = ``;
-			for (var i = 0; i < internships.length; i++) {
-				trs += `
-			<div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-					<div class="service__area-item t-center thin-bg">
-						<div class="service__area-item-icon mb-20 bg-white">
-							<img src="${internships[i].small_icon}" alt="">
-						</div>
-						<div class="service__area-item-content">
-							<h4 class="mb-20 parag" style="text-align:center;">${internships[i].small_title}</h4>
-							<p class="mb-20 cont ">${internships[i].small_description}</p>
-							<a class="simple-btn"  onclick="intershipDetils(${internships[i].id})">More Details</a>
-						</div>
-					</div>
-				</div>
-			`;
-
-			}
-
-			document.getElementById("internships").innerHTML = trs;
-
-
-		})
-		.catch(error => {
-			// handle the error
-		});
-}
-ViewAllInternship();
-
-// this function use to get Internship Detils by id 
-let singleIntership
-function intershipDetils(id) {
-	fetch(`https://enagancy.000webhostapp.com/api/internship/${id}`)
-		.then(response => {
-			return response.json()
-
-
-		})
-		.then(data => {
-
-			singleIntership = data
-			// console.log(data)
-			localStorage.setItem("internshipDeltils", JSON.stringify(singleIntership));
-
-			window.location.assign("internship_view.html")
-
-
-		})
-		.catch(error => {
-			// handle the error
-		});
-}
-// this function use to display Cours Detils 
-let displayIntern = []
-function displaySingleIntern() {
-	let Intership = JSON.parse(localStorage.getItem("internshipDeltils"));
-	displayIntern=Intership
-	document.getElementById("internDetils").innerHTML = `
-	<div class="itemOne">
-					<h1 class="backendTitle">${displayIntern.title}</h1>
-					<p class="p-title">${displayIntern.description}</p>
-					<div class="">
-						<ul class="ListLinks">
-						<li>${displayIntern.price} </li>
-						<li>${displayIntern.duration} </li>
-						<li>${displayIntern.project} </li>
-						<li>${displayIntern.tag_one} </li>
-						<li>${displayIntern.tag_two} </li>
-						</ul>
-					</div>
-					<br>
-					<br>
-					<div class="FooterButtons">
-						<button class="childButtom1">
-							Register now
-							<img src="img/arrow-right.svg" alt="" srcset="">
-						</button>
-						<button class="childButtom2"> <svg xmlns="http://www.w3.org/2000/svg" width="20.402"
-								height="24.264" viewBox="0 0 20.402 24.264">
-								<g id="download" transform="translate(-628.752 -864.244)">
-									<g id="icon" fill="none" stroke="#0f0f0f" stroke-width="2px"
-										transform="translate(623.113 859)">
-										<path id="Line_310" stroke-linejoin="round" d="M0 0L19.606 0"
-											data-name="Line 310" transform="translate(6.085 28.508)"></path>
-										<g id="arrow" transform="rotate(90 9.798 15.542)">
-											<path id="Rectangle_2" d="M8.96-.012L18.011 9.5 8.96 19.012"
-												data-name="Rectangle 2"></path>
-											<path id="Line_382" d="M18 0L0 0" data-name="Line 382"
-												transform="translate(-.5 9.5)"></path>
-										</g>
-									</g>
-								</g>
-							</svg>
-							<a href="${displayIntern.content_link}">Download Internship content</a>
-
-							</button>
-					</div>
-
-				</div>
-				<div class="ItemTow">
-					<img src="img/Group 48 (1).svg" alt="">
-				</div>
-	`
-	document.getElementById("internBg").style.cssText = `background-color:${displayIntern.color}; !important`
-
-}
-
-displaySingleIntern()

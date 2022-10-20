@@ -130,27 +130,29 @@
 							<div class="contact__form-form-title"> <span class="section-top">Get in Touch</span>
 								<h2 class="parag">Always ready for your Connect</h2>
 							</div>
-							<form action="#">
-								<div class="row">
+							<form onsubmit="return contactForm()">
+								<p id="alert" class="mb-20">erorr !</p>
+								<p id="AlertSucses" class="mb-20">erorr !</p>>
+								<div class="row mt-10">
 									<div class="col-lg-4 col-md-6 mb-30">
 										<div class="contact__form-form-group icon"> <i class="far fa-user"></i>
-											<input type="text" name="name" placeholder="Your Name" required="required">
+											<input id="name" type="text" name="name" placeholder="Your Name" required="required">
 										</div>
 									</div>
 									<div class="col-lg-4 col-md-6 md-mb-30">
 										<div class="contact__form-form-group icon"> <i class="far fa-envelope-open"></i>
-											<input type="text" name="email" placeholder="Your Email"
+											<input id="email" type="text" name="email" placeholder="Your Email"
 												required="required">
 										</div>
 									</div>
 									<div class="col-lg-4 lg-mb-30">
 										<div class="contact__form-form-group icon"> <i class="far fa-address-book"></i>
-											<input type="text" name="subject" placeholder="Subject" required="required">
+											<input id="subject" type="text" name="subject" placeholder="Subject" required="required">
 										</div>
 									</div>
 									<div class="col-lg-12 mb-30">
 										<div class="contact__form-form-group icon"> <i class="far fa-comments"></i>
-											<textarea name="message" rows="8" placeholder="Message"></textarea>
+											<textarea id="massage" name="message" rows="8" placeholder="Message"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-12">
