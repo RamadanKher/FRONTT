@@ -388,11 +388,11 @@ function contactForm() {
 
 		// (D) SERVER RESPONSE
 		.then((response) => {
-			if (response =="successfully") {
+			if (response ==`"We have received your request and will contact you as soon as possible"`) {
 
 				// sucess register
 				document.getElementById("AlertSucses").classList.add("d-block");
-				document.getElementById("AlertSucses").innerHTML = `regester course is successfully`
+				document.getElementById("AlertSucses").innerHTML = `We contact you as soon as possible`
 			} else {
 				//  falid register 
 				document.getElementById("alert").classList.add("d-block")

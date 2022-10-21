@@ -4574,9 +4574,10 @@ Page
 
 .parag
 {
-    text-align: left;
+    text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+    font-size: 40px;
 }
 .proge2
 {
